@@ -1,0 +1,5 @@
+\contentsline {part}{I\hspace {1em}PDE Notes}{2}
+\contentsline {subsection}{\numberline {0.1}Three Main Operators}{2}
+\contentsline {subsubsection}{\numberline {0.1.1}Potential Operator}{2}
+\contentsline {subsection}{\numberline {0.2}Classifications of General Linear Second Order PDEs in 2 Independent Variables}{2}
+\contentsline {subsection}{\numberline {0.3}Separation of Variables}{2}

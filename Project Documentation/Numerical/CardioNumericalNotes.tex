@@ -1,0 +1,166 @@
+\documentclass[12pt, a4paper, fleqn]{article}
+%\usepackage{calligra}
+%\usepackage[T1]{fontenc}
+
+
+%MATH NOTATION, SYMBOL, AND STYLE PACKAGES
+\usepackage{amsthm}
+
+\usepackage{amsmath}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amssymb}
+\usepackage{tensor}
+\usepackage{esvect}
+\addtolength{\topmargin}{0in}
+\usepackage{esint} %Lines up double+ integrals
+\usepackage{xparse}
+\usepackage{physics}
+\usepackage{harpoon}
+\usepackage{enumitem}
+\setlist{nolistsep}
+\usepackage{mathtools} %Allows writing on top of arrows
+\usepackage{relsize} %resize text
+
+\usepackage{cancel} %cross out cancellation terms equation
+
+
+%GRAPHICS PACKAGES
+\usepackage[usenames,dvipsnames]{xcolor} % allows you to use color names, call this BEFORE you call TikZ
+\usepackage{tikz, tikz-3dplot, pgfplots}
+\usepackage{tkz-graph}
+\usetikzlibrary{calc}
+
+%PAGE FORMATTING AND PAGE SET UP PACKAGES
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{wrapfig} %for wrapping text around images
+%\usepackage{multicol, fullpage}
+
+
+%WRITING FORMAT STYLE SELECTION
+\pagestyle{headings}
+\setlength\parindent{24pt}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage
+\hspace{1pt}}
+\fancyhead[LO, LE]{Blood Circulation Through Artery Numerical Lecture}
+\fancyhead[CO, CE]{}
+\fancyhead[RO, RE]{Kearns-Ruiz}
+
+% Theorem Style
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+% Definition Styles
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem{question}{Question}
+\newtheorem{notation}{Notation}
+\theoremstyle{definition}
+\newtheorem*{obvious}{\textbf{Recall}}
+
+
+\newcommand*{\vtr}[1]{\text{\overrightharp{\ensuremath{#1}}}}
+
+%STYLE OF PROOFS
+\def\proof{\noindent{\it Proof.}\hskip{0.1in}}
+
+%SELF-DEFINED COMMANDS AND SHORTCUTS
+
+%\renewcommand{\v}[1]{\ensuremath{\mathbf{#1}}} %type \v<vector>} with no $$
+\renewcommand{\b}[1]{\ensuremath{\mathbb{#1}}} %type \b{<Set to be written in Blackboard Font>}with no $$
+
+\renewcommand{\u}[1]{\underline{\smash{#1}}}
+\newcommand{\?}{\stackrel{?}{=}}
+\renewcommand{\bf}[1]{\textbf{#1}}
+\renewcommand{\it}[1]{\textit{#1}}
+
+%Note: With \underbrace, if using it inside an align, you can't insert the & to align all the equations because underbrace reads it as you trying to add text and because no text is present, you'll get an error. This equation inside the underbrace will simply have to be misaligned. Unless you use a tedious \hspace method to fix it.
+
+\begin{document}
+\begin{definition}\bf{(Runge-Kutta Method)}\\
+A method for numerically integrating ordinary differential equations by using a trial step at the midpoint of an interval to cancel out the lower-order error terms.
+\end{definition}
+
+\bf{Second-Order Formula}
+\begin{align*}
+{k}_{1} &= h\cdot f({x}_{n}, {y}_{n})\\
+{k}_{2} &= h \cdot f \left( {x}_{n} + \frac{1}{2} h, {y}_{n} + \frac{1}{2} {k}_{1} \right)\\
+{y}_{n+1} &= {y}_{n} + {k}_{2} + \mathcal{O} \left( {h}^{3} \right)\\
+\end{align*}
+
+\bf{Fourth-Order Formula}
+\begin{align*}
+{k}_{1} &= h\cdot f({x}_{n}, {y}_{n})\\
+{k}_{2} &= h \cdot f \left( {x}_{n} + \frac{1}{2} h, {y}_{n} + \frac{1}{2} {k}_{1} \right)\\
+{k}_{3} &= h \cdot f \left( {x}_{n} + h, {y}_{n} + \frac{1}{2} {k}_{2} \right)\\
+{k}_{4} &= h \cdot f \left( {x}_{n} + h, {y}_{n} + \frac{1}{2} {k}_{3} \right)\\
+{y}_{n+1} &= {y}_{n} + \frac{1}{6}{k}_{1} + \frac{1}{3}{k}_{2}+ \frac{1}{3}{k}_{3}+ \frac{1}{6}{k}_{4} + \mathcal{O} \left( {h}^{5} \right)\\
+\end{align*}
+This method is reasonably simple and robust and is a good general candidate for numerical solution of differential equations when combined with an intelligent adaptive step-size routine. \\
+
+\noindent Let $\varphi$ be the map from the material domain to the spatial domain. \\
+let $\Phi$ be the map from the referential domain to the spatial domain. \\
+let $\Psi$ be the map from the referential domain to the material domain. \\
+let ${\Omega}_{M}$ denote the material domain and ${M}_{i}$ is a unit material. \\
+let ${\Omega}_{R}$ denote the referential domain. \\
+let ${\Omega}_{S}$ denote the spatial domain and ${S}_{i}$ is a unit of space. \\
+
+MAP OF DOMAINS \\ \\
+
+\noindent Thus,
+\begin{align*}
+\varphi : {\Omega}_{M} \cross [{t}_{0}, {t}_{\text{final}}) &\longrightarrow {\Omega}_{S} \cross [{t}_{0}, {t}_{\text{final}})\\
+( \vtr{M}, t) &\longmapsto \varphi( \vtr{M}, t) = ( \vtr{s}, t)\\
+& \longmapsto \Phi({\Psi}^{-1}( \vtr{M}, t)) = ( \vtr{s}, t)
+\end{align*}
+which links $\vtr{M}$ and $ \vtr{S}$ in time by the law of motion, namely
+\begin{align}
+\vtr{S} = \vtr{S}(\vtr{M}, t), t = t
+\end{align}
+
+\begin{enumerate}
+\item The spatial coordinates $\vtr{S}$ depend on both the material particle $\vtr{M}$ and time $t$.\\
+\item Physical time is measured by the same variable $v$ in both material and spatial domains. \\
+\end{enumerate}
+
+\noindent Since $\varphi = \Phi \circ {\Psi}^{-1}$, let us define the mappings $\Phi$ (map from reference to spatial) and ${\Phi}^{-1}$ (map from material to referential).\\
+
+\noindent Thus,
+\begin{enumerate}
+\item
+\begin{align*}
+{\Phi}^{-1} : {\Omega}_{M} \cross [{t}_{0}, {t}_{\text{final}} &\longrightarrow {\Omega}_{R} \cross [{t}_{0}, {t}_{\text{final}})\\
+(\vtr{M}, t) &\longmapsto \Phi(\vtr{M}, t) = (\vtr{R}, t) \\
+\end{align*}\\
+\item
+\begin{align*}
+{\Phi}^{-1} : {\Omega}_{R} \cross [{t}_{0}, {t}_{\text{final}} &\longrightarrow {\Omega}_{S} \cross [{t}_{0}, {t}_{\text{final}})\\
+(\vtr{R}, t) &\longmapsto \Phi(\vtr{R}, t) = (\vtr{S}, t)
+\end{align*}
+\end{enumerate}
+$\Phi$ can be understood as the motion of the grid points in the spatial domain. \\
+${\Psi}^{-1}$ can be understood as the motion of the material form the perspective of the material. \\
+
+
+\begin{tikzpicture}
+\begin{centering}
+\draw plot [smooth cycle] coordinates {(5,0.25) (6,0.35) (6.5, 0.2) (7,0.5) (7,1.65) (6.5,2.75) (5.8,2.75) (5.3,1.45) (4.8,0.85) } node at (6.2,1.4) {$\Omega_S$};
+\path[->] (3.1,1.7) edge [bend left] node[above] {$\varphi$} (5.0,1.7);
+\draw plot [smooth cycle] coordinates {(1.0,.1)(1.5,.2)(2.8,.5)(2.9,1.5)(2.8,2.8)(1.4,2.5)(0.5,0.5)} node at (2.0,1.3) {$\Omega_M$};
+\path[->] (1.6,0) edge [bend right] node[below] {$\varPsi$ \,\,} (2.7,-2.0);
+\draw plot [smooth cycle] coordinates {(3.0,-2.1)(3.5,-2.2)(4.8,-2.0)(4.9,-3.3)(4.8,-4.0)(3.4,-4.0)(2.5,-2.5)} node at (3.9,-3.2) {$\Omega_R$};
+\path[->] (4.9,-1.8) edge [bend right] node[below] {$\,\, \varPhi$} (5.75,0.0);
+\end{centering}
+\end{tikzpicture}
+
+\end{document}

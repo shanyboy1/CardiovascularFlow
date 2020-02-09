@@ -1,0 +1,1113 @@
+\documentclass[12pt, a4paper]{article}
+%\usepackage{calligra}
+%\usepackage[T1]{fontenc}
+\usepackage{fourier}
+\usepackage[T1]{fontenc}
+
+%MATH NOTATION, SYMBOL, AND STYLE PACKAGES
+\usepackage{amsthm}
+
+\usepackage{amsmath}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amssymb}
+\usepackage{tensor}
+\usepackage{esvect}
+\addtolength{\topmargin}{0in}
+\usepackage{esint} %Lines up double+ integrals
+\usepackage{xparse}
+\usepackage{physics}
+\usepackage{harpoon}
+\usepackage{enumitem}
+\setlist{nolistsep} 
+\usepackage{mathtools} %Allows writing on top of arrows
+\usepackage{relsize} %resize text
+%\usepackage{stackengine} %allows multiple evaluation points for vertical bar on right side of derivative
+%stackengine.sty must be in the same folder as the TeX file calling the stackengine package!
+%How to use:
+%\left. <derivative> \right|_{\stackunder[1pt]{$\scriptscriptstyle <first point>$}{$\scriptscriptstyle <second point>$} . . .  }
+%For just normal one, stackengine is not needed and just do 
+%\left. <derivative> \right|_{<evaluation point>}
+\usepackage{cancel} %cross out cancellation terms equation
+
+
+%GRAPHICS PACKAGES
+\usepackage[usenames,dvipsnames]{xcolor} % allows you to use color names, call this BEFORE you call TikZ
+\usepackage{tikz, tikz-3dplot, pgfplots}
+\usepackage{tkz-graph}
+\usetikzlibrary{calc}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+\usepackage{chemfig}
+\usepackage{asymptote}
+\usepackage{graphicx} %for importing imates
+\usepackage{lipsum} %for lipsum lorem
+\usepackage{mathrsfs} %fancy letters with $\mathscr{<text>}$
+
+%PAGE FORMATTING AND PAGE SET UP PACKAGES
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{wrapfig} %for wrapping text around images
+%\usepackage{multicol, fullpage}
+
+
+%WRITING FORMAT STYLE SELECTION
+\pagestyle{headings}
+\setlength\parindent{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage
+\hspace{1pt}}
+\fancyhead[LO, LE]{Blood Circulation Through Artery}
+\fancyhead[CO, CE]{}
+\fancyhead[RO, RE]{Kearns-Ruiz}
+
+% Theorem Style
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+% Definition Styles
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem{question}{Question}
+\newtheorem{notation}{Notation}
+\theoremstyle{definition}
+\newtheorem*{obvious}{\textbf{Recall}}
+
+
+\newcommand*{\vtr}[1]{\text{\overrightharp{\ensuremath{#1}}}}
+
+%STYLE OF PROOFS
+\def\proof{\noindent{\it Proof.}\hskip{0.1in}}
+
+%SELF-DEFINED COMMANDS AND SHORTCUTS
+
+%\renewcommand{\v}[1]{\ensuremath{\mathbf{#1}}} %type \v<vector>} with no $$
+\renewcommand{\b}[1]{\ensuremath{\mathbb{#1}}} %type \b{<Set to be written in Blackboard Font>}with no $$
+
+\renewcommand{\u}[1]{\underline{\smash{#1}}}
+\newcommand{\?}{\stackrel{?}{=}}
+\renewcommand{\bf}[1]{\textbf{#1}}
+\renewcommand{\it}[1]{\textit{#1}}
+
+%Note: With \underbrace, if using it inside an align, you can't insert the & to align all the equations because underbrace reads it as you trying to add text and because no text is present, you'll get an error. This equation inside the underbrace will simply have to be misaligned. Unless you use a tedious \hspace method to fix it. 
+
+
+
+
+
+
+
+
+\begin{document}
+\noindent \textbf{Blood Flow and Laws of Conservation}\\
+''Blood flow must obey the principles of conservation of mass, momentum, and energy.''
+$\vspace{.15in}$
+
+\noindent \textbf{Definition[Conservation of Mass]:}
+
+
+
+\begin{itemize}
+\item Whatever flows in must flow out.
+\item Analogous to Kirchhoff's Law
+\item At any junction, the summation of current flow into a junction must be equal to the sum of the currents flowing out of that junction.
+\item Steady flow means that the average local speed of flow is inversely proportional to the local cross-sectional area.
+\end{itemize}
+That is, $v \propto \frac{1}{\Omega}$, where $\Omega$ is the cross-sectional area (domain).
+
+\begin{definition}[\textbf{Momentum}]
+The \textit{momentum} of matter (in a closed (\textit{isolated}) system) cannot change without the action of force (external to the system). 
+\end{definition}
+
+\begin{remark}
+(From momentum to force)
+\begin{align*}
+\underbrace{\vtr{P}= m\vtr{v} = m\frac{d\vtr{x}}{dt}.}_{\substack{\textit{(A moving mass will}\\ \textit{have momentum.)}}}
+\end{align*}
+We then differentiate both sides, and 
+\begin{align*}
+\frac{d\vtr{P}}{dt}&=m\frac{d \left(  \frac{d\vtr{x}}{dt}  \right)  }{dt}\\
+&=m\frac{d^{2}\vtr{x}}{dt^{2}}\\
+&=m\vtr{a}\\
+&=\vtr{F.}
+\end{align*}
+Thus, a changing momentum will generate a force. 
+\end{remark}
+
+\begin{obvious}
+\textit{Every heart beat there is a net flow of blod out of the heart.}
+\end{obvious}
+\newpage
+\noindent \textbf{Forces Driving Blood Flow}:
+\begin{itemize}
+	\item Gravitational Forces
+	\item Pressure Gradient Forces
+	\setlength{\itemindent}{0.25in}
+	\item Pressure in a blood vessel varies from point to point.
+	\setlength{\itemindent}{0.50in}
+	\item The rate of change of pressure with distance in a specific direction is the pressure
+	gradient in that direction.
+	\item The pressure doesn't make the blood move. It's the pressure \u{gradient}.
+	There's pressure everywhere, but the net direction of the pressure is all that matters.
+\end{itemize}
+\begin{definition}[Stress]
+Stress is the force that acts on some surface equally spread over that surface's area.
+\end{definition}
+\textbf{What forces oppose blood flow?}
+\begin{itemize}
+\item The shear forces due to the viscosity (thickness) of the blood and turbulences.
+\end{itemize}
+
+The stress acting on any surface resolves into two components:
+\begin{itemize}
+\item Shear Stress: The component tangent to the surface.
+\item Normal Stress: The component perpendicular to the surface.
+\item Pressure is a \u{normal} stress.
+\item Positive pressure ($P>0$) is a negative normal stress.
+\item Positive normal stress is tensile stress (\textit{like a pulling force or suction force}).\\
+\end{itemize}
+\noindent \textbf{Newton's Second Law of Motion}: $\vspace{0.2in}$
+$\displaystyle \vtr{F} = m\frac{d^{2}\vtr{x}}{dt^{2}}$
+
+\noindent We can modify Newton's second law of motion to apply to fluids:\\
+\begin{equation}
+\begin{multlined}
+\hspace{-0.5in} \text{Density} \times \hspace{-1.55in} \underbrace{\text{(transient acceleration}}_{\substack{\textit{rate of change of velocity}\\ \textit{with respect to time at a} \\ \textit{given location in the fluid}}}  
+\hspace{-1.5in}
++
+ \underbrace{\text{convective acceleration)}}_{\substack{\textit{rate of change of velocity of a fluid}\\ \textit{ parcel caused by the motion of the  } \\ \textit{particle from one place to another} \\ \textit{in a nonuniform flow field.}}} 
+\boldsymbol{=} \\ \\
+ \Large\substack{\text{negative} \\ \text{pressure gradient}}
+ \hspace{0.1in} + \hspace{0.1in}
+ \Large\underbrace{\substack{\text{divergence of normal} \\ \text{stress and shear stress}}}_{\normalsize\substack{\textit{the rate of change of} \\ \textit{those stresses arising} \\ \textit{from the fluid viscosity}}}
+ \hspace{0.1in} + \hspace{0.1in}
+\Large\substack{\text{gravitational force} \\ \text{per unit volume}} . \\
+\end{multlined}
+\end{equation}
+
+\begin{remark}
+Note that Newton's second law refers to the force that a single object (call it a point-mass) 
+\end{remark}
+ 
+\begin{itemize}
+\item In reality, the velocity of blood flow is changing every microsecond.\\
+\item Velocity is \u{never} constant.\\
+\item Every time the flow velocity is recorded, it is labeled ``velocity record''.\\
+\item The average value of a collection of consecutive records is called the ``ensemble average''.\\
+\item The $\underbrace{\text{particular velocity recording - ensemble average}}_{\substack{\textit{can be thought of as an error} \\ \textit{or percentage deviation from the net velocity}}}$ = turbulence. \\\\
+\end{itemize}
+\noindent Which would then translate to,
+\begin{align*}
+\frac{\partial \vtr{v}}{\partial t} =
+\underbrace{\text{transient acceleration}}_{\substack{\textit{at any given point} \\ \textit{in the fluid}}}
+\end{align*}
+
+The partial derivative of nonuniform velocity with respect to \u{spatial coordinates} gives the velocity gradient tensor,
+\begin{align*}
+\vtr{v} \cdot \textbf{T} \hspace{0.1in} \stackrel{\text{contraction}}{=\joinrel=\joinrel=\joinrel=}  \hspace{0.1in} \textit{(convective acceleration)}
+\end{align*}
+\noindent Blood pressure at any point in the body is the sum of static pressure \it{(gravity)} + heart's pumping pressure + friction loss in the vessels. \\\\
+Let $\vtr{P}_{i}$ denote pressure, $m\vtr{g}$ denote the weight of the fluid, $\vtr{P}_{\!H_p}$ denote the pressure generated by the heart every pump, and let $\vtr{f}_{\!\!\!\mu}$ denote the friction force on the fluid by the vessel walls.\\
+Then, 
+\begin{align}
+%command \! decreases horizontal space between characters. Use as many times as needed. 
+\vtr{P}= m\vtr{g} + \vtr{P}_{\!H_p} + \vtr{f}_{\!\!\!\mu}
+\end{align}
+
+—Blood vessel dimension is a function of blood pressure. \\
+Flow is \bf{defined} by the field of the velocity vectors of all the particles in a domain.\\
+If the fluid is not moving towards some net direction, then there is no net flow. 
+\begin{definition}\bf{(Flow States)}
+A flow is defined to be \bf{steady} if the flow's velocity is independent of time. 
+That is, {\large $\frac{\partial \vtr{v}}{\partial t}$} $= 0$.\\ \\
+It is \bf{unsteady} if {\large $\frac{\partial \vtr{v}}{\partial t}$} $\neq 0$.
+\begin{itemize}
+\item The flow is called \bf{turbulent} if the velocity field behaves stochastically. That is, if the velocity components are random variables described by their statistical properties.
+\end{itemize}
+\end{definition}
+
+\noindent Laminar flow is \u{not} turbulent. Laminar flow has a parabolic profile.\\
+IMAGE OF PARABOLIC PROFILE.\\
+
+\noindent And blood flow is laminar \u{only} in vessels that are small enough. \\
+
+
+\noindent \bf{Turbulent Flow:}
+\begin{itemize}
+\item Turbulent flow contains small eddies within larger eddies and small eddies within smaller eddies, \ldots, ad infinitum.
+\item Turbulence dissipates energy. 
+\item If a laminar flow turns turbulent, the resistance to the same flow may be greatly increased. 
+\item Axisymmetric flow of blood means parabolic blood flow.
+	\begin{itemize}
+	\item Visual: Concentric tubes of fluid (one inside of another).
+	\end{itemize}
+\item Shear strain rate is higher in turbulence.
+\item The \u{\bf{effective} coefficient of friction} is higher.\\
+\end{itemize}
+Thus, shear stress $=$ coefficient of viscosity $\times$ shear strain rate.
+
+\begin{remark}
+\bf{Korotkoff sound} at systole is the sound of the jet noise of rushing blood.\\
+\indent Heart murmurs are a turbulence noise.
+\end{remark}
+\noindent If there is no turbulence in the flow and we are also ignoring gravitational and friction forces, then
+\begin{align*}
+\text{density} \times \text{acceleration} = \text{negative pressure gradient}.
+\end{align*}
+That is,
+\begin{align}
+\rho\vtr{a} = -\nabla\vtr{P}
+\end{align}
+If the acceleration is negative, deceleration of the fluid occurs and the pressure gradient becomes positive.\\
+In other words, in a decelerating fluid the pressure increases in the direction of the flow. 
+
+\newpage
+\section{Health and Physiology}
+Atherogenesis is the process of forming plaque in the inner lining of arteries (atheromas).  This plaque is usually found at sites of turbulence in the aorta.
+FIX
+
+—If there is turbulence in the aorta, it may be due to atherotic plaque buildup on the walls of that artery.
+
+\subsection{Heart Valves}
+$\hspace{1.86in}$
+\bf{Mitral Valve} $\vspace{-0.5in}$
+%flow diagram for blood from left attrium to left ventricle
+\tikzstyle{int}=[draw, fill=red!65, minimum size=2em]
+\tikzstyle{init} = [pin edge={to-,thin,black}]
+\begin{center}
+	\begin{tikzpicture}[node distance=4cm,auto,>=latex']
+		\node [int, pin={[init]above:{\Large$\substack{\text{left} \\ \text{attrium}}$}}] (a) {$\vtr{P}_{A_L}$};
+	    	\node (b) [left of=a,node distance=2cm, coordinate] {a};
+	    	\node [int, pin={[init]above:{\Large$\substack{\text{left} \\ \text{ventricle}}$}}] (c) [right of=a] {$\vtr{P}_{V_L}$};
+	    	\node [coordinate] (end) [right of=c, node distance=2cm]{};
+		\node [int, pin={[init]above:{\Large$\substack{\text{left} \\ \text{ventricular} \\ \text{wall}}$}}] (d) [right of=c] {W};
+	    	\node [coordinate] (end) [right of=d, node distance=-1em]{};
+	    	\path[->] (b) edge node {$\substack{\text{blood} \\ \text{in} \\ \text{flow}}$} (a);
+	    	\path[->] (a) edge node {$\substack{\text{blood flow} \\ \text{through}}$} (c);
+	    	\draw[->] (c) edge node {$\substack{\text{blood} \\ \text{out} \\ \text{flow}}$} (end) ;
+
+%center wavy arrow left
+\draw[-stealth,
+decoration={snake, 
+    amplitude = 1mm,
+    segment length = 6mm,
+    post length=0.8mm},decorate] (-2,0) -- (-0.5,0);
+
+%center wavy arrow center
+\draw[-stealth,
+decoration={snake, 
+    amplitude = 1mm,
+    segment length = 6mm,
+    post length=0.8mm},decorate] (0.5,0) -- (3.5,0);
+
+\draw [-stealth] (0.8, -1.5) -- (0.52, 0);
+
+\draw [draw=none] (2.6, -2.1) rectangle  (2.6, -2.1) node[pos=2] {${\large\substack{\text{Mitral valve opens} \\ \text{due to experiencing}\\ \text{excessive pressure} \\ \it{(at diastole)}}}$};
+
+%center wavy arrow right
+\draw[-stealth,
+decoration={snake, 
+    amplitude = 1mm,
+    segment length = 6mm,
+    post length=0.8mm},decorate] (4.5,0) -- (7.56,0);
+
+%top 
+\draw[-stealth,
+decoration={snake, 
+    amplitude = 1mm,
+    segment length = 8mm,
+    post length=0.8mm},decorate] (8.35,0) -- (10, 2.5);
+
+%bottom
+\draw[-stealth,
+decoration={snake, 
+    amplitude = 1mm,
+    segment length = 8mm,
+    post length=0.8mm},decorate] (8.35,0) -- (10, -2.5);
+
+%top first mid (from top to bottom)
+\draw[-stealth,
+decoration={snake, 
+    amplitude = 1mm,
+    segment length = 8mm,
+    post length=0.8mm},decorate] (8.35,0) -- (10, 1);
+
+%bottom first mid (from bottom to top)
+\draw[-stealth,
+decoration={snake, 
+    amplitude = 1mm,
+    segment length = 8mm,
+    post length=0.8mm},decorate] (8.35,0) -- (10, -1);
+
+
+%center collision arrow
+\draw[-stealth,
+decoration={snake, 
+    amplitude = 1mm,
+    segment length = 8mm,
+    post length=0.8mm},decorate] (8.35,0) -- (10, 0);
+
+
+%center collision arrow
+\draw[-stealth,
+decoration={snake, 
+    amplitude = 1mm,
+    segment length = 8mm,
+    post length=0.8mm},decorate] (10,2.5) -- (9, 3.5);
+\draw (10,3) -- (10,-3);
+
+%center collision arrow
+\draw[-stealth,
+decoration={snake, 
+    amplitude = 1mm,
+    segment length = 8mm,
+    post length=0.8mm},decorate] (10,-2.5) -- (9, -3.5);
+
+%ventricular wall collision wall
+\draw (10,3.6) -- (10,-3.6);
+
+%gradient text
+\draw [draw=none] (10.2,-4) rectangle  (15.8,-1.5) node[pos=1] {${\Large\substack{\text{The blood stream collides with} \\ \text{the ventricular wall and} \\ \text{the flow is decelerated,} \\ \text{thus creating a positive} \\ \text{pressure gradient.} \\ (-\rho\vtr{a} = \nabla\vtr{P})}}$};
+\end{tikzpicture}\\
+	\it{Blood moves from the left attrium into the left ventricle.}\\
+\end{center} 
+
+\begin{itemize}
+\item composed of two very thin, flexible membranes.
+\item are pushed open at diastole when the pressure in the left attrium exceeds that of the left ventricle.
+\end{itemize}
+
+\begin{center}
+$\vtr{P}_{A_L} > \vtr{P}_{V_L}$ $\hspace{0.2in}$ for $\vtr{P}_{A_L}$ is the pressure in the left attrium \\ 
+								      $\hspace{1.1in}$ and $\vtr{P}_{V_L}$ is the pressure in the left ventricle.
+\end{center}
+Towards the end of diastole, the pressure acting on the ventricular side of the mitral valve \\ becomes higher than that acting on the side of the membrane facing the left atrium. \\ The net force acts to close the valve. Closure occurs without any backward flow or regurgitation. Papillary muscles play no role in opening or closing the valve. They serve to generate systolic pressure in the isovolumetric condition by pulling on the membranes and to prevent the valves from inverting into the atrium during systole.
+\begin{center}
+\it{\u{Deceleration} is the essence, not backward flow.}
+\end{center}
+\newpage
+\subsection{Pressure and Flow in Blood Vessels—Generalized Bernoulli's Equation}
+If we know the \bf{pressure} and \bf{velocity} of blood at one location in the blood vessel and want to know the pressure and velocity at another location, we can integrate equation (1) along a streamline \it{(line integral)}. 
+That is, 
+\begin{equation}
+\begin{multlined}
+\left. P \right|_{x=l} - \left. P \right|_{x=0} = \left. \frac{\rho}{2}{|\vtr{v}|}^{2} \right|_{x=l} - \left. \frac{\rho}{2}{|\vtr{v}|}^{2} \right|_{x=0}
+ + \\
+\text{(specific weight)(height difference of station $l$ and station $0$)} 
++ \\
+\text{(rate of change of the kinetic energy of the blood between stations $l$ and $0$)} 
++ \\
+\text{(integrated frictonal loss between stations $l$ and $0$)}.
+\end{multlined}
+\end{equation}
+
+This can be written mathematically as
+\begin{align}
+\displaystyle
+\underbrace{\int\limits_{x=0}^{x=l} \frac{d\vtr{P}}{dt}  = 
+\left. P \right|_{x=l} - \left. P \right|_{x=0}  = 
+\left. \frac{\rho}{2}{|\vtr{v}|}^{2} \right|_{x=l}  - 
+\left. \frac{\rho}{2}{|\vtr{v}|}^{2} \right|_{x=0}}_{\substack{\it{Ignoring everything else, they form} \\ \it{the Bernoulli equation.}}} +
+{m}_{B}\cdot\vtr{g}\cdot h + 
+\displaystyle \left. \Delta {E}_{{K}_{B}} \right|_{x=0}^{x=l}  +
+\int\limits_{x=0}^{x=l} {\mu}_{k} + {\mu}_{s}.
+\end{align}
+The Bernoulli equation says that pressure can be converted to \u{kinetic energy} of \it{motion} and \u{potential energy} of \it{height} as long as the fluid flow is steady and the fluid is inviscid. \\
+
+Pressure rises when the velocity of flow is slowed down, and vise versa. \\
+Bernoulli's equation is only for \it{steady conditions}.
+
+\bf{Scenarios:}
+\begin{itemize}
+\item For flow in normal aorta and vena cava, the friction term is neglected while all the other terms are kept.
+\item The smaller the vessel, the more significant the friction loss becomes.
+	\begin{itemize}
+	\item In microcirculation, (vessels of diameter $\leq 100 \mu m$), friction loss becomes dominant in flow analysis. 
+		\begin{itemize}
+		\item In capillaries, the pressure drop balances the frictional loss. 
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+\begin{example}
+Let $x=0$ be at the aortic valve and $x=l$ be at the right attrium in the vena cava. At these two locations the velocities are approximately equal and the heights of these two locations are the same. This allows us to simplify the right side of equation (4). 
+We know $\left. \vtr{v}\right|_{x=0} \approxeq \left. \vtr{v} \right|_{x=l}$ and $\left. h \right|_{x=0} \approxeq \left. h \right|_{x=l}$.
+
+Thus, 
+\begin{align}
+\displaystyle
+\left. P \right|_{x=l} - \left. P \right|_{x=0} = 
+\cancelto{0}{\left. \frac{\rho}{2}{|\vtr{v}|}^{2} \right|_{x=l}  - 
+\left. \frac{\rho}{2}{|\vtr{v}|}^{2} \right|_{x=0}}+
+\cancelto{0}{{m}_{B}\cdot\vtr{g}\cdot \left. \Delta h \right|_{x=0}^{x=l}} + 
+\displaystyle \left. \Delta {E}_{{K}_{B}} \right|_{x=0}^{x=l} +
+\int\limits_{x=0}^{x=l} {\mu}_{k} + {\mu}_{s}.
+\end{align}
+\newpage
+\noindent Also, by measuring the average pressure and flow over a period of time extended over several cycles of oscillations (heart beats), the kinetic energy will average out to zero because the rate of change of the kinetic energy of the blood in this segment oscillates on the positive and negative side equally.\\
+So,
+\begin{align*}
+\left. \Delta {K}_{{E}_{P}} \right|_{t = 1} - \left. \Delta {K}_{{E}_{P}} \right|_{t = 2} + \left. \Delta {K}_{{E}_{P}} \right|_{t = 3} - \ldots\ldots = 0.
+\end{align*}
+Hence,  
+\begin{align}
+\displaystyle
+\left. P \right|_{x=l} - \left. P \right|_{x=0} = \int\limits_{x=0}^{x=l} {\mu}_{k} + {\mu}_{s}.
+\end{align}
+The average pressure at the aortic valve minus the average pressure at the right attrium is equal to the integrated frictional loss.
+
+This is also written as 
+\begin{align}
+\text{(systemic arterial pressure) = flow $\times$ resistance.}
+\end{align}
+\end{example}
+
+
+
+\subsection{Work-Energy Theorem Applied To Biofluids}
+$\vtr{W} = \vtr{F} \cdot \vtr{d}$\\
+There is an object. This object is composed of matter, therefore it has mass. Unless we place this object on some sort of coordinate system (or give it some point of reference with respect to other properties or attributes like location, temperature, energy, volume, density, etc.), we cannot say anything meaningful about this object. We place this object on a coordinate grid. This object is now said to be stationary (not moving). Suddenly, this object begins to move, either through some internal propulsion system or because someone or something is causing it to move. Let's go with the latter. By our assumption, this object is moving because something else is moving it. So, this object is now, (with respect to the coordinate system), beginning to move. That is, object is changing its position about the space. This object is now said to have a velocity $\left(\text{defined as } \frac{\Delta \vtr{x}}{\Delta t }   \text { or when } \displaystyle \small\lim_{\Delta \to 0} \frac{\Delta \vtr{x}}{\Delta t} = \frac{d\vtr{x}}{dt} \right)$. Notice that the moment that this object has a direction of motion and some numerical quantity relating how much of this motion is occuring, the object's motion is described by a vector. Regardless of whether this object is speeding up, (changing its velocity with respect to time), or maintaining a constant velocity, for a very brief moment the object had to have changed its velocity from zero (rest) to the speed that it now possesses. If the object’s velocity changed, the object is said to have been accelerating $\left(\text{defined as } \frac{d\left(\frac{d\vtr{x}}{dt}\right)}{dt} = \frac{d^{2}\vtr{x}}{dt^{2}} = \frac{d\vtr{v}}{dt} = \vtr{a}\right)$. \\
+
+\noindent The object is now said to have experienced a force defined as\\\\
+\indent (force on the object by externals) $=$ (mass of the object) $\times$ (acceleration object experiences).\\\\
+Written as
+\begin{align}
+\vtr{F} = m\cdot{\vtr{a}}. 
+\end{align}
+This scenario is governed by Newton’s \u{first} and \u{second} law. ${ }^{1^{\text{st}}}$An object at rest will remain at rest unless an external force acts on it (unless something else can accelerate this mass), and ${ }^{2^{\text{nd}}}$an object is said to experience a force if it accelerates. That is, $\vtr{F} = m\cdot\vtr{a}$. Now, force is there. We say that this force is \it{acting} on the object; having an influence on its condition. It is not until we define a starting and ending point for which this force acts on that we get any more meaning. \\
+A \u{force acting} on an object traveling along some defined path (i.e., between points $a$ and $b$) is said to \it{do} \bf{work} on the object traveling \u{along the path}. Either the force is the one forcing this object to move between points $a$ and $b$ or it is affecting the object in some way as it travels along the path (meaning the force is acting over the distance that the object travels. Only on this path do we care about how the force affects the object). \\
+This is denoted as
+\begin{align}
+{W}_{\text{total}} = \displaystyle \sum_{i=1}^{n} {W}_{i}  =  \displaystyle \sum_{i=1}^{n} \vtr{{F}_{i}}\cdot{\Delta {x}_{i}} 
+\hspace{0.1in}
+\xrightarrow{\displaystyle\lim_{\Delta \to 0}}
+\hspace{0.1in}
+ \lim_{\Delta \to 0} \left[\sum_{i=1}^{\infty} \vtr{{F}_{i}}\cdot{\Delta {x}_{i}}\right] =   \int\limits_{\partial \Omega} dW = \int\limits_{a}^{b} \vtr{F} \cdot d\vtr{x} .
+\end{align}
+We find the force felt at each infinitesmial region of path $d\vtr{x}$ (infinitesimal work $dW$) and add up all of the work done by the force along the entire path to get the total work done by the force on the object.\\
+Similarly as before, it is until we introduce the notion of time into the scenario that we get any more useful information.
+\bf{Power} is the \u{amount of work} that that the force produces by acting on the object \u{for a specified unit amount of time}. \\ \\
+This would then be written as
+\begin{align}
+{\text{(work per unit time)} \hspace{0.25in} 
+\displaystyle\frac{dW}{dt} = 
+\frac{d}{dt}\left(\vtr{F} \cdot \vtr{d}\right) 
+\xrightarrow{\text{  at some fixed time $t$  }}  
+\frac{F\cdot d}{t}} = P. 
+\hspace{0.25in} \text{(Power)}
+\end{align}
+We apply these ideas now to fluids in motion.\\ \\
+The key modification(s)?
+\begin{itemize}
+\item The mass of an object or particle is now actually the density of a fluid, thus areas and volumes are now to be considered.
+\item Only the overall motion (direction) of the fluid (mass) or groups within the fluid are to be considered. Single particles are never considered. That is simply too difficult, tedious, inefficient, not useful for the bigger picture, and there will always exist another particle within the fluid that will completely cancel or neutralize whatever behavior that particle is exhibiting. 
+\item In classical mechanics, force is always considered as acting on a single object, or more fundamentally, on that object's center of mass. In fluids, a force will act over a specified unit region of area ($\Omega$). Thus force is refered to as pressure when working with fluids. \\
+\end{itemize}
+The Bernoulli pressure equation is used to find the total pressure in the fluid. \\
+
+\noindent Rate at which pressure force at point 1 does work on blood\\
++ rate at which pressure force at station 2 does work on blood\\
++ rate at which pressure and shear on vessel wall do work on blood\\
++ rate at which heat is transported into the system\\
+= rate of change of the kinetic energy of blood in the volume \\
++ rate at which kinetic energy is carried by particles leaving the vessel at station 2 \\
+- rate at which kinetic energy is carried by particles entering the vessel at station 1 \\
++ rate at which kinetic energy is carried across the blood vessel wall \\
++ rate of gain of potential energy of blood against gravity \\
++ rate of change of internal energy in the volume. \\
+
+\noindent This can be written as
+\begin{equation}
+\begin{multlined}
+\hspace{-0.8in}
+\left. \frac{\partial{W}_{B1}}{\partial t} \right|_{x=a} 
++ \left. \frac{\partial {W}_{B2}}{\partial t} \right|_{x=b}
+ + \frac{\partial {W}_{BS_V}}{\partial t}
+ + \left. \frac{\partial {Q}_{B1}}{\partial t} \right|_{x=a} = \\ \\ 
+\underbrace{\frac{\partial {E}_{K_{B \text{total}}}}{\partial t}}_{\substack{\it{in the} \\ \it{original volume}}}
+ + \underbrace{\left. \frac{\partial {E}_{K_{B2}}}{\partial t} \right|_{x=b}}_{\substack{\it{leaving} \\ \it{cross-section}}}
+ - \underbrace{\left. \frac{\partial {E}_{K_{B1}}}{\partial t} \right|_{x=a}}_{\substack{\it{entering} \\ \it{cross-section} \\ \it{not belonging} \\ \it{to original} \\ \it{volume}}}
+ +\underbrace{\frac{\partial {E}_{{K}_{B}\text{net}}}{\partial t}}_{\substack{\it{kinetic} \\ \it{energy} \\ \it{carried} \\ \it{across} \\ \it{vessel} \\ \it{wall}}}
+ +\underbrace{\frac{\partial {E}_{P}}{\partial t}}_{\substack{\it{against} \\ \it{gravity} \\ \it{along} \\ \hspace{-0.15in} -\partial \Omega }}
+ + \frac{\partial {E}_{\text{system}}}{\partial t}, 
+\end{multlined}
+\end{equation}
+ for subscript $B1$ and $B2$, which describe measurements at stations $1$ and $2$ or our starting and ending points, respectively, and $x=a$ and $x=b$, which describe starting and ending points, respectively, as well. $-\partial \Omega$ describes the inner boundary of the surface, which is the inside of the blood vessel walls. The \it{original volume} is the volume "captured" in the cross-section at some specific instance in time. \\
+
+Note that locations 1 and 2 are cross-sectional areas through which the blood flows through, located at $x=0$ and $x=l$, respectively. 
+This equation is written for the fluid particles that occupy the voulme in the blood vessel between locations 1 and 2 instantaneously (at that particular moment in time). But these fluid particles are moving, so that in an infinitesimal time interval $\Delta t$ later, the boundary of the space occupied by the fluid particles is no longer the original vessel wall and cross sections 1 and 2, but has become the new vessel wall and the new curved surfaces. Hence, the change of kinetic energy  of the fluid particles is equal to the change of kinetic energy in the original volume + the kinetic energy of the particles that entered into the locations. The ${7}^{\it{th}}$ term in the equation is kinetic energy entering the fluid \u{not} part of the original volume so it has to be subtracted. The ${8}^{\it{th}}$  term is the energy in the actual wall of the vessel cross-section. The vessel itself experiences energy and also transfers energy into the volume system, so it must be included. The sum of the ${5}^{\it{th}}$, ${6}^{\it{th}}$, ${7}^{\it{th}}$, and ${8}^{\it{th}}$ terms is the total rate of change of the kinetic energy of the fluid particles in the vessel between locations 1 and 2. 
+
+\begin{align}
+ \int\limits_{{\Omega}_{1}} \vtr{p} \vtr{v} dA \hspace{0.5in} \substack{\text{rate at which the pressure force} \\ \text{does work on the fluid passing location 1.}}
+\end{align}
+
+\begin{align}
+ \int\limits_{{-\partial \Omega}} \!\!\! {\stackrel{\nu}{T}}_{i} {\vtr{v}}_{i}dA \hspace{0.5in} \substack{\text{work done on vessel wall} \\ \text{by blood passing location 2.} \\ \text{where ${\stackrel{\nu}{T}}_{i}$ is the stress vector} \\ \text{acting on the surface of the vessel wall} \\ \text{of area $dA$}, \\ \text{and $i = 1, 2, 3$ are the component directions.} \\ \text{Integration is done over all points of} \\ \text{contact between the blood and the vessel wall.} \\ \text{for each component $i$.}}
+\end{align}
+\noindent The kinetic energy per unit volume of a small fluid element is $\frac{1}{2} \rho {v}^{2}$. (This comes from the kinetic energy equation ${K}_{E} = \frac{1}{2} m{|\vtr{v}|}^{2}$, where we take the mass of the fluid (its center of mass) to be the mass per unit volume of the fluid, or its density $\rho$, and recalling the square of the velocity vector is a scalar. Since the velocity has three components, $\vtr{v}=<{v}_{1}, {v}_{2}, {v}_{3}>$. Thus, the rate of change of kinetic energy throughout the system is 
+\begin{align}
+\frac{\partial}{\partial t} \left[ {K}_{E}\right] = \int\limits_{V} \frac{\partial}{\partial t} \left( \frac{1}{2} \rho {v}^{2} \right) dv.
+\end{align}
+The kinetic energy leaving the system is the same as that throughout system is also given by $\frac{1}{2} \rho {v}^{2}$ and velocity ${v}_{i}$ is replaced by only the velocity component normal to the vessel wall (the r component of velocity ${v}_{r}$). And the sum of the ${5}^{\it{th}}$, ${6}^{\it{th}}$, ${7}^{\it{th}}$, and ${8}^{\it{th}}$ terms is the ratef of change of the kinetic energy of all the fluid particles that occupy the volume at that instance in time. \\
+This is called the \it{material derivative} of the kinetic energy, denoted by the symbol $\frac{D}{Dt}$.
+
+\begin{align}
+\underbrace{\frac{\partial {E}_{K_{B \text{total}}}}{\partial t}}_{\substack{\it{in the} \\ \it{original volume} \\ \it{(5)}}}
+ + \underbrace{\left. \frac{\partial {E}_{K_{B2}}}{\partial t} \right|_{x=b}}_{\substack{\it{leaving} \\ \it{cross-section} \\ \it{(6)}}}
+ - \underbrace{\left. \frac{\partial {E}_{K_{B1}}}{\partial t} \right|_{x=a}}_{\substack{\it{entering} \\ \it{cross-section} \\ \it{not belonging} \\ \it{to original} \\ \it{volume} \\ \it{(7)}}}
+ +\underbrace{\frac{\partial {E}_{{K}_{B}\text{net}}}{\partial t}}_{\substack{\it{kinetic} \\ \it{energy} \\ \it{carried} \\ \it{across} \\ \it{vessel} \\ \it{wall} \\ \it{(8)}}}
+ =
+ \frac{D}{Dt} \int \frac{1}{2} \rho {v}^{2} dA
+\end{align}
+
+\noindent The potential energy of blood against gravity is $\rho \vtr{g} h$ per unit volume, where $\rho$ is the density of the fluid, \vtr{g} is the gravitational acceleration, and $h$ is the height of the fluid element above a fixed plane perpendicular to the vector of gravitational acceleration (the bottom of the vessle wall).\\
+The total potential energy of the fluid particles in the volume V instantaneously is\\
+\begin{align}
+G = \int\limits_{V} \rho \vtr{g} \vtr{h} dv
+\end{align}
+and its rate of change $\frac{DG}{Dt}$ can be broken into four integrals. \\
+
+\noindent Finally, as the blood flows heat is generated from viscosity. As such, the internal energy of the system is also affected by the generation of heat.This is equal to the scalar product of the stress tensor ${\sigma}_{ij}$ and the strain rate tensor ${V}_{ij}$. 
+
+\noindent Hence, the last term, the rate of dissipation of mechanical energy, is given by
+\begin{center}
+$\mathscr{D} = \displaystyle\int\limits_{V} {\sigma}_{ij} {V}_{ij}dv \hspace{0.25in} \text{for } i,j = 1, 2, 3$ \\
+\end{center}
+That is,
+%mechanical energy dissipation tensor
+\begin{align*}
+\mathscr{D} = 
+\begin{bmatrix}
+\int\limits_{V} {\sigma}_{11} {V}_{11}dv & \int\limits_{V} {\sigma}_{12} {V}_{12}dv  & \int\limits_{V} {\sigma}_{13} {V}_{13}dv \\
+ \int\limits_{V} {\sigma}_{21} {V}_{21}dv & \int\limits_{V} {\sigma}_{22} {V}_{22}dv  & \int\limits_{V} {\sigma}_{23} {V}_{23}dv \\
+ \int\limits_{V} {\sigma}_{31} {V}_{31}dv  & \int\limits_{V} {\sigma}_{32} {V}_{32}dv  & \int\limits_{V} {\sigma}_{33} {V}_{33}dv \\
+\end{bmatrix}
+\end{align*}
+
+
+
+\noindent The following energy equation is obtained:
+\begin{align}
+\begin{multlined}
+%first term
+\hspace{-2in} 
+\underbrace
+{
+\int\limits_{\Omega 1} 
+	\vtr{p} \cdot 
+\left(
+	{\vtr{v}}_{\perp \vtr{\eta}}
+\right) 
+	\text{ dA }
+%second term
+- \int\limits_{\Omega 2} 
+\vtr{p} \cdot 
+\left({\vtr{v}}_{\perp \vtr{\eta}}
+\right) 
+\text{ dA }
+}
+_{\substack
+	{
+	\it{Velocity vector $\vtr{v}$ perpendicular to} \\ \it{vector normal to vessel's walls ($\vtr{\eta}$).} \\ \it{Integration is over the cross-sectional} \\ \it{circular entrance and exit locations} \\ \it{of blood flow. The end ``caps''.} \\ \bf{(Work on $\boldsymbol{\Omega 2}$ by blood) + }  \\ \bf{(Work on $\boldsymbol{\Omega 1}$ by blood)}
+	}
+}
+\hspace{-1.7in}
+%third term
++ 
+\underbrace{
+\int\limits_{-{\partial \Omega}_{vw}}
+\!\!\!{\stackrel
+		{ \nu }   { \vtr{ \bf{ T } } }
+	}_{ i } 
+\cdot 
+{ \vtr{ v } }_{ i }
+\text{ dA       } 
+}
+_{\substack
+	{
+	\it{Stress vector along} \\ \it{vector normal to} \\ \it{inner vessel wall ($\vtr{\nu}$).} \\ \it{Integration is along} \\ \it{the inner vessel wall.} \\ \bf{(Work on vessel wall} \\ \bf{by blood ($\boldsymbol{\Delta Q)}$,  for} \\ \bf{$\boldsymbol{Q}$ is heat.}
+ 	}
+}
+\hspace{0.1in}
++ 
+%fourth term
+\hspace{-0.1in}
+\underbrace{
+\text{     heat input} 
+}
+_{\substack{
+	\bf{Heat coming into} \\ \it{the volume}\bf{(system)} \\ \it{as blood flows in.}}
+}
+\\ \\
+\hspace{-0.5in}
+\boldsymbol{=}
+%fifth term
+\underbrace{
+\int\limits_{\Omega 2} 
+\left(          
+	\frac{1}{2}      \rho       {s}^{2}  
+\right)     
+	\left(      \vtr{v}   \cdot     d\vtr{A}      
+\right)
+}
+_{\substack{
+	\bf{Kinetic energy at} \\ \bf{${2}^{\text{nd}}$ (exit / final)} \\ \it{with vector $\vtr{\nu}$ as} \\ \it{normal to ``cap'' area}
+	}
+}
+%sixth term
+- \underbrace{
+\int\limits_{\Omega 1}  
+\left(          
+	\frac{1}{2}      \rho       {s}^{2}  
+\right)     
+	\left(      \vtr{v}   \cdot     d\vtr{A}      
+\right)
+}
+_{\substack{
+	\bf{Kinetic energy at} \\ \bf{${1}^{\text{st}}$ (entrance / initial)} \\  \it{with vector $\vtr{\nu}$ as} \\ \it{normal to ``cap'' area}
+	}
+}
+\hspace{0.1in}
+\boldsymbol{+}
+%seventh term
+\underbrace{
+\int\limits_{-{\partial \Omega}_{vw}} \!\!\!\! 
+\left( 
+\frac{1}{2}\rho{s}^{2} 
+\right) 
+\left(
+{\vtr{v}}_{i}
+\right)
+\cdot 
+\left( {\vtr{\nu}}_{i} \text{ dA } 
+\right)
+}
+_{\substack{
+	\bf{Kinetic energy generated} \\ \bf{over inner vessel wall by blood} \\ \it{disk of infinitesimal volume} \\ \it{times flow velocity on the wall itself}
+	}
+}
++ 
+%eighth term
+\underbrace{
+\int\limits_{V} \frac{\partial}{\partial t} \left(\frac{1}{2} \rho {s}^{2} \right) d\nu}
+_{\substack{
+	\bf{Change in kinetic energy} \\ \bf{felt by every particle ($\boldsymbol{d\nu}$)} \\  \bf{inside the flow volume.}
+	}
+}
+\\ \\
++
+%ninth term
+\underbrace{
+\frac{D}{Dt}
+\left[ \int\limits_{V} \rho \vtr{g}\cdot h d\nu
+\right]
+}
+_{\substack{
+	\bf{Change in potential energy} \\ \bf{felt by every particle ($\boldsymbol{d\nu}$) inside} \\  \bf{the volume of flowing blood} \\ \bf{due to the height of each particle} \\ \it{with respect to the bottom of} \\ \it{the blood vessel wall}}
+}
++
+\underbrace{
+\int\limits_{V} \left( {\sigma}_{ij}{V}_{ij} \right) d\nu.
+}
+_{\substack{
+	\bf{Heat $\boldsymbol{Q}$ generated } \it{by motion} \\ \it{of a viscous fluid, which} \\  \it{generates heat } \bf{due to friction.}}
+}
+\end{multlined}
+\end{align}
+\newpage
+\noindent Where $s$ is the speed of a small fluid.
+Integration on the third term occurs over the entire surface of contact between the blood and the vessel wall. Any region of vessel wall touched by blood is included. (Think: inside surface area integration).\\ \\
+\noindent A cleaner version, 
+\begin{center}
+%first term
+$
+\hspace{-1in}
+{\displaystyle
+\int\limits_{\Omega 1} 
+	\vtr{p} \cdot 
+\left(
+	{\vtr{v}}_{\perp \vtr{\eta}}
+\right) 
+	\text{ dA }
+%second term
+- \int\limits_{\Omega 2} 
+\vtr{p} \cdot 
+\left({\vtr{v}}_{\perp \vtr{\eta}}
+\right) 
+\text{ dA }
+%third term
++
+\int\limits_{-{\partial \Omega}_{vw}}
+\!\!\!{\stackrel
+		{ \nu }   { \vtr{ \bf{ T } } }
+	}_{ i } 
+\cdot 
+{ \vtr{ v } }_{ i }
+\text{ dA       } 
+%fourth term
++
+\text{     heat input}
+}$
+$
+{\displaystyle
+=
+%fifth term
+\int\limits_{\Omega 2} 
+\left(          
+	\frac{1}{2}      \rho       {s}^{2}  
+\right)     
+	\left(      \vtr{v}   \cdot     d\vtr{A}      
+\right)
+%sixth term
+-
+\int\limits_{\Omega 1}  
+\left(          
+	\frac{1}{2}      \rho       {s}^{2}  
+\right)     
+	\left(      \vtr{v}   \cdot     d\vtr{A}      
+\right)
+%seventh term
++
+\int\limits_{-{\partial \Omega}_{vw}} \!\!\!\! 
+\left( 
+\frac{1}{2}\rho{s}^{2} 
+\right) 
+\left(
+{\vtr{v}}_{i}
+\right)
+\cdot 
+\left( {\vtr{\nu}}_{i} \text{ dA } 
+\right)
+}$ \\
+${\displaystyle
+%eighth term
++
+\int\limits_{V} \frac{\partial}{\partial t} \left(\frac{1}{2} \rho {s}^{2} \right) d\nu 
+%ninth term
++
+\frac{D}{Dt}
+\left[ \int\limits_{V} \rho \vtr{g}\cdot h d\nu
+\right]
+%tenth term
++
+\int\limits_{V} \left( {\sigma}_{ij}{V}_{ij} \right) d\nu
+}$.
+\end{center}
+
+\noindent This is the most general version of the \bf{Energy Balance equation}. These are all of the variables that must be considered to describe how much energy exists in the system. \\ \\
+For blood flow problems, a few of these terms can be neglected. 
+\begin{itemize}
+\item The heat coming into the system is usually very small.
+\item The deformation of the blood vessel wall may be so small that both 
+	\begin{itemize}
+		\item the work done by the wall and,
+		\item the kinetic energy crossing the vessel 	wall are negligible. 
+	\end{itemize}
+\end{itemize}
+Thus, 
+\begin{center}
+%first term
+$
+\hspace{-1in}
+{\displaystyle
+\int\limits_{\Omega 1} 
+	\vtr{p} \cdot 
+\left(
+	{\vtr{v}}_{\perp \vtr{\eta}}
+\right) 
+	\text{ dA }
+%second term
+- \int\limits_{\Omega 2} 
+\vtr{p} \cdot 
+\left({\vtr{v}}_{\perp \vtr{\eta}}
+\right) 
+\text{ dA }
+%third term
++
+\int\limits_{-{\partial \Omega}_{vw}}
+\cancelto{0}
+{
+\!\!\!\!\!{\stackrel
+		{ \nu }   { \vtr{ \bf{ T } } }
+	}_{ i } 
+\cdot 
+{ \vtr{ v } }_{ i }
+\text{ dA       }
+}
+%fourth term
++
+\cancelto{0}
+{
+\text{     heat input}
+}
+}$
+$
+{\displaystyle
+=
+%fifth term
+\int\limits_{\Omega 2} 
+\left(          
+	\frac{1}{2}      \rho       {s}^{2}  
+\right)     
+	\left(      \vtr{v}   \cdot     d\vtr{A}      
+\right)
+%sixth term
+-
+\int\limits_{\Omega 1}  
+\left(          
+	\frac{1}{2}      \rho       {s}^{2}  
+\right)     
+	\left(      \vtr{v}   \cdot     d\vtr{A}      
+\right)
+%seventh term
++
+\int\limits_{-{\partial \Omega}_{vw}} \!\!\!\! 
+\cancelto{0}
+{
+\left( 
+\frac{1}{2}\rho{s}^{2} 
+\right) 
+\left(
+{\vtr{v}}_{i}
+\right)
+\cdot 
+\left( {\vtr{\nu}}_{i} \text{ dA } 
+\right)
+}
+}$ \\
+${\displaystyle
+%eighth term
++
+\int\limits_{V} \frac{\partial}{\partial t} \left(\frac{1}{2} \rho {s}^{2} \right) d\nu 
+%ninth term
++
+\cancelto{(\rho \vtr{g} {h}_{2} - \rho \vtr{g} {h}_{1})}
+{
+\frac{D}{Dt}
+\left[ \int\limits_{V} \rho \vtr{g}\cdot h d\nu
+\right]
+}
+%tenth term
++
+\int\limits_{V} \left( {\sigma}_{ij}{V}_{ij} \right) d\nu
+}$.
+\end{center}
+
+becomes 
+
+\begin{align}
+\begin{multlined}
+%first term 
+\hspace{-0.5in}
+\int\limits_{\Omega 1} 
+	\vtr{p} \cdot 
+\left(
+	{\vtr{v}}_{\perp \vtr{\eta}}
+\right) 
+	\text{ dA }
+%second term
+- \int\limits_{\Omega 2} 
+\vtr{p} \cdot 
+\left({\vtr{v}}_{\perp \vtr{\eta}}
+\right) 
+\text{ dA }
+=\\
+%third term
+\int\limits_{\Omega 2} 
+\left(          
+	\frac{1}{2}      \rho       {s}^{2}  
+\right)     
+	\left(      \vtr{v}   \cdot     d\vtr{A}      
+\right)
+%fourth term
+-
+\int\limits_{\Omega 1}  
+\left(          
+	\frac{1}{2}      \rho       {s}^{2}  
+\right)     
+	\left(      \vtr{v}   \cdot     d\vtr{A}      
+\right)
+%fifth term
++
+\int\limits_{V} \frac{\partial}{\partial t} \left(\frac{1}{2} \rho {s}^{2} \right) d\nu 
+\\
+%sixth term
++
+(\rho \vtr{g} {h}_{2} - \rho \vtr{g} {h}_{1})
+%seventh term
++
+\int\limits_{V} \left( {\sigma}_{ij}{V}_{ij} \right) d\nu
+\end{multlined}
+\end{align}
+We also make the simplification that density is constant throughout the volume. In fact, for blood flow we make the assumption that density $\rho = 1$\\
+We also then simplify by considering not the pressure at every single point and summing all the terms. Instead we consider the ``apparent'' pressure felt throughout the volume. We do this by creating a ratio of pressure per volume flow rate. That is, how much pressure is felt by the surface with some particular flow velocity.\\
+Thus we define
+\begin{align}
+\boldsymbol{\hat{p}} = \frac{\int\limits_{\Omega} 
+	\vtr{p} \cdot 
+\left(
+	{\vtr{v}}_{\perp \vtr{\eta}}
+\right) 
+	\text{ dA }}{Q} = \frac{1}{Q} \left[\int\limits_{\Omega} 
+	\vtr{p} \cdot 
+\left(
+	{\vtr{v}}_{\perp \vtr{\eta}}
+\right) 
+	\text{ dA }\right]
+\end{align}
+to be the \it{characteristic} pressure for the system.\\
+We do the same for the volume flow velocity; we find the characteristic velocity, the best description for the flow velocity throughout the system. \\
+We also define 
+\begin{align}
+	\boldsymbol{{\hat{q}}}^{2} = \frac{\int\limits_{\Omega} 
+	{q}^{2} v \text{ dA }}{Q} = 
+	\frac{1}{Q} \left[
+	\int\limits_{\Omega} 
+	{q}^{2} v \text{ dA }
+	\right]
+\end{align}
+to be the \it{characteristic} velocity for the system. \\
+Characteristic meaning the trait as it ``appears'' to be. Thus, these are ``velocity-weighted'' averages; they are defined by velocity. For the two characteristic equations, $Q$ is the volume flow rate, 
+\begin{align}
+Q = \int\!\!\!\!v \text{ dA.}
+\end{align}
+Letting $\mathscr{D} = \displaystyle\int\limits_{V} {\sigma}_{ij} {V}_{ij}dv \text{ for } i,j = 1, 2, 3$, the final energy equation becomes 
+
+\begin{align}
+{\boldsymbol{\hat{p}}}_{1} - {\boldsymbol{\hat{p}}}_{2} = \frac{1}{2} \rho {\boldsymbol{{\hat{q}}}^{2}}_{2} -  \frac{1}{2} \rho {\boldsymbol{{\hat{q}}}^{2}}_{1} + \rho\vtr{g}{h}_{2} = \rho\vtr{g}{h}_{1} + \frac{\mathscr{D}}{Q} + \frac{1}{Q}
+\left[
+\int\frac{\partial}{\partial t} 
+	\left( \frac{1}{2} \rho {q}^{2} 
+	\right) dv
+\right].
+\end{align}
+
+\begin{remark}
+But recall, the pressure varies from point to point in a vessel, and no single pressure can be assumed at the section. 
+\begin{itemize}
+\item If the pressure $p$ is uniform over a cross section, then $p = \boldsymbol{\hat{p}}$.
+\item If the velocity $v$ is uniform over the cross section, then ${\boldsymbol{\hat{v}}}^{2} = {\boldsymbol{\hat{q}}}^{2}$. If the velocity profile is parabolic as in Poiseuille flow, then ${\boldsymbol{\hat{v}}}^{2} = {2\boldsymbol{\overline{v}}}^{2}$
+\end{itemize}
+
+\end{remark}
+
+
+
+\newpage
+\section{Project Outline}
+\noindent \bf{Introduction (Day 1)}\\
+\u{Problem?}\\
+—Understanding and modelling blood flow through a vessel.
+
+\noindent \u{Importance?}:
+\begin{itemize}
+\item Invasive exploratory surgery is dangerous and life-threatening. 
+\item It is very expensive.
+\end{itemize}
+
+\noindent \u{Problem solution}
+\begin{itemize}
+\item The solution allows us to take our general equation and appropriately modify it to some given domain constraints and run simulations of how blood flow is behaving in this new domain.
+\item it is non-invasive, non-exploratory (important for patient safety).
+\end{itemize}
+%Draw the domain here. It is a rigid right circular horizontal cylinder on the xy-plane.
+
+\noindent \u{Problem set-up}\\
+Talk about going from force on a particle (center of mass) to collection of particles for fluid dynamics.\\
+\it{our variables:}
+\begin{itemize}
+\item $\vtr{u} =$  blood velocity
+\item $\vtr{P} =$  blood pressure 
+\item $\rho = $ blood density
+\item $\mu = $ blood viscosity
+\item $a$ = domain radius
+\item $r$ = radius of cylinder inside domain with $0 \leq r \leq s$.
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}
+\draw[-stealth] (0,0) -- (0,-1);
+\end{tikzpicture} \\
+\it{General equation derivation}\\
+\begin{tikzpicture}
+\draw[-stealth] (0,-3) -- (0,-4);
+\end{tikzpicture}\\
+\it{Simplification by fluid property assumptions}\\
+\begin{tikzpicture}
+\draw[-stealth] (0,-6) -- (0,-7);
+\end{tikzpicture}
+\end{center}
+
+%Find dimensions of pulmonary artery with respect to reynolds number and turbulence, diameter, etc.
+
+%Biology lesson on anatomy of heart and blood flow path.
+
+\noindent \u{Fluid Assumptions}
+\begin{itemize}
+\item Blood is incompressible, thus no divergence ($\vtr{\nabla} \cdot \vtr{u} = 0$).
+\item Fluid obeys laminar flow, thus not turbulent.
+\item Blood is Newtonian, which means the viscous stress is proportional to the velocity vector derivatives.
+\item No-slip condition, meaning there is no friction on the vessel walls.
+\item The domain is horizontal, so no potential energy gain due to gravitational force.
+\item Flow is not axisymmetric (thus symmetric) so the velocity \vtr{u} now becomes a function of the radius, exclusively.
+\item Flow is described as steady, thus the fluid properties are independent of time. 
+\end{itemize}
+%Flow cylinder image form Y.C. Fung book.
+\newpage
+\section{Heart Function}
+The phases of the heart:\\
+ \bf{Diastolic Phase}\\
+In each cycle, the left and right ventricles are first filled with blood from the left and right atria, respectively, in the diastolic phase of the cycle. 
+\begin{itemize}
+\item The deceleration of the blood stream (when the blood crashes to the bottom and starts to build up, the blood splashes up) a pressure field is generated, which closes the valves between the atria and the ventricles. \\
+\end{itemize}
+The contraction of the heart muscles begins and the pressure in the ventricle rises. \\ \\
+\noindent \bf{Systolic Phase}
+\begin{itemize}
+\item When the pressure in the left ventricle exceeds that in the aorta, and the pressure in the right ventricle exceeds that in the pulmonary artery, the aortic valve in the left ventricle and the pulmonary valve in the right ventricle are pushed open, and blood is ejected into the aorta and the lung.
+\vspace{0.1in}
+\begin{itemize}
+	\item That is, 
+	\vspace{-0.15in}
+	\begin{center}
+	${P}_{\text{left ventricle}} \geq {P}_{\text{aorta}}$ and ${P}_{\text{right ventricle}} \geq {P}_{\text{pulmonary 			artery}}$
+	\end{center}
+	will cause the aortic valve in the left ventricle and the pulmonary valve in the right ventricle to be pushed open, 	and blood is ejected into the aorta and the blood, respectively. \\
+	\end{itemize}
+\end{itemize}
+
+
+\iffalse
+\begin{wrapfigure}{r}{0.5\textwidth}
+\vspace{-0.45in}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{pressure}
+  \end{center}
+  \vspace{-0.2in}
+  \caption{Systolic and Diastolic Phases}
+  \vspace{-9pt}
+\end{wrapfigure}
+\fi
+
+\noindent Blood ejects until the deceleration of the jets of blood create pressure fields to close the valves. \\\\
+Then the muscle relaxes, the pressure decreases, and the diastolic phase begins. Blood pressure in the left ventricle will fluctuate from about $0$ mmHg (atmospheric level) to a high of about $120$ mmHg. But in the aorta, the pressure fluctuates much less. 
+$\vspace{0.04in}$
+
+\noindent The adult human heart has four chambers:
+\begin{itemize}
+\item Two thin-walled atria separated from each other by an interatrial septum.
+\item Two thick-walled ventricles separated by an interventricular septum.
+\end{itemize}
+
+Venous blood flow into the right atrium, through the tricuspid valve into the right ventricle, then is pumped into the pulmonary artery and into the right ventricle, then is pumped into the pulmonary artery and the lung, where blood is oxygenated. The oxygenated blood then flows from the pulmonary veins into the left atrium, and through the mitral valve into the left ventricle, whose contraction pumps the blood into the aorta, and then to the arteries, arterioles, capillaries, venules, veins, and back to the right atrium
+
+\end{document}
+

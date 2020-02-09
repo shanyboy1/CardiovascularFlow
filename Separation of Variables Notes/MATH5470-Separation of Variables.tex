@@ -1,0 +1,324 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{multicol, fullpage}
+\usepackage{amsfonts,epsfig,epstopdf,titling,url,array}
+\usepackage{esint} %Lines up double+ integrals
+
+
+\usepackage[usenames,dvipsnames]{xcolor} % allows you to use color names, call this BEFORE you call TikZ
+
+\usepackage{tikz, tikz-3dplot, pgfplots}
+\usepackage{tkz-graph}
+\usetikzlibrary{decorations.pathmorphing,patterns}
+
+\usetikzlibrary{hobby}
+\pgfplotsset{compat=1.8}
+
+% formatting the section titles
+\usepackage{titlesec}
+
+
+\usepackage{upgreek}
+\usepackage{cancel}
+\usepackage{subcaption}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+
+\usetikzlibrary{calc}
+
+
+
+
+\setlength{\evensidemargin}{1in}
+\addtolength{\evensidemargin}{-1in}
+\setlength{\oddsidemargin}{1.5in}
+\addtolength{\oddsidemargin}{-1.5in}
+\setlength{\topmargin}{1in}
+\addtolength{\topmargin}{-1.5in}
+
+\setlength{\textwidth}{16cm}
+\setlength{\textheight}{23cm}
+
+
+\theoremstyle{plain}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem*{corollary}{Corollary}
+
+\theoremstyle{definition}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{notation}{Notation}
+\newtheorem{question}{Question}
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{solution}{Solution}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{counter}{Counter Example}[section]
+
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{note}{Note}
+
+
+
+\def\proof{\noindent {\it{Proof.}} \hskip 0.1in}
+\def\qed{\rightline{$\blacklozenge$}}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\II}{\mathbb{I}}
+
+
+
+
+
+
+\begin{document}
+\author{Sean Kearns}
+
+\begin{minipage}{0.44\textwidth}
+\begin{flushleft}
+Sean Kearns\\
+\today
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.44\textwidth}
+\begin{flushright}
+MATH5470\\
+PDE Notes
+\end{flushright}
+\end{minipage}
+
+
+
+\tableofcontents
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\part{PDE Notes}
+
+\subsection{Three Main Operators}
+
+\subsubsection{Potential Operator}
+The Potential Operator, often called the Laplacian, 
+
+
+
+
+
+
+\subsection{Classifications of General Linear Second Order PDEs in 2 Independent Variables}
+
+Consider the following second order homogeneous PDE
+$$ Lu = Au_{xx} + 2Bu_{xy} + Cu_{yy} + Du_x + Eu_y + Fu + G = 0.$$
+
+
+
+
+
+
+
+
+\subsection{Separation of Variables}
+
+$$\textbf{For homogeneous constant coefficient second order linear differential equations}$$
+
+The general form of such a differential equation can be represented as $ay_{tt}+by_{t}+cy=0$ where $a,b,c \in \RR$. To solve, we shall let $y=e^{rt}$. After plugging $y$ into the general differential equation previously mentioned we shall obtain 
+\begin{eqnarray*}
+ar^2e^{rt}+bre^{rt}+ce^{rt} &=& 0\\
+e^{rt}(ar^2+br+c) &=& 0
+\end{eqnarray*}
+
+After, we will be faced with $3$ cases:
+
+\begin{eqnarray}
+&\text{2 distinct real roots}& \rightarrow b^2-4ac>0 \\
+&\text{Repeated real roots}& \rightarrow b^2-4ac=0  \\
+&\text{Complex conjugates}& \rightarrow b^2-4ac<0  
+\end{eqnarray}
+
+For case $(1)$, $y=c_1e^{r_1t}+c_2e^{r_2t}$.
+
+For case $(2)$, $y= c_1y_1 +c_2y_2$ where $y_1=e^{\frac{-b}{2a}t}$ and $y_2=f(t)\cdot y_1$. $f(t)$ can be found from the reduction of order formula given by
+
+$$f(t) = \int y^{-2}_1 \cdot e^{-\int \frac{b}{a}\,dt}\,dt $$
+
+For case $(3)$, we take the positive root $r= \alpha + i \beta$ to obtain the general solution $\quad$ $y=c_1e^{\alpha t} \cos{\beta t} + c_2e^{\alpha t} \sin{\beta t}$.
+
+\newpage
+
+$\textbf{Separation of Variables}$
+
+
+Solve the Dirichlet problem on the $\pi$ square such that;
+
+\[
+\begin{cases}
+   \triangle u(x,y)=0, & \text{in the boundary} \quad \Omega\\
+  u(x,y)=f, & \text{on the boundary} \; \partial \Omega\\
+    u(x,0)=u(x,\pi)=u(\pi,y)=0,              & \text{Boundary Values}
+\end{cases}
+\]
+ 
+
+Assuming that we can find a solution, and that the solution isn't trivial let us take $u(x,y)=v(x)w(y)$. Using the PDE from the Dirichlet problem ($\triangle u(x,y)=0$ in the boundary $\Omega$, and $u=f$ on the boundary $\partial \Omega$) we obtain 
+$$ \triangle u(x,y) = \frac{\partial ^2u}{\partial x^2} + \frac{\partial ^2u}{\partial y^2} = v_{xx}(x)w(y)+v(x)w_{yy}(y) =0 $$
+
+\begin{eqnarray}
+ v_{xx}(x)w(y)+v(x)w_{yy}(y) =0 \\
+ v_{xx}(x)w(y) = -v(x)w_{yy}(y) \\
+\frac{v_{xx}(x)}{v(x)} = \frac{-w_{yy}(y)}{w(y)} = \lambda 
+\end{eqnarray}
+
+Note that statement $(6)$ is true because the only way for two functions to be equal to each other is for them to be the same functions with the same independent variables (which is not the case), or for them to be constant functions ($ \lambda \in \RR$). Also, by dividing by the functions $v(x)$ and $w(y)$, we have inherently decided to exclude the trivial solutions.
+
+Now we have two differential equations to solve. Namely, $\frac{v_{xx}(x)}{v(x)} = \lambda$ and $ \frac{-w_{yy}(y)}{w(y)} = \lambda$. Note that these two differential equations cannot be solved simultaneously so we will start with $\frac{v_{xx}(x)}{v(x)} = \lambda$ because (7) has more Boundary Values.
+
+
+\[
+\begin{cases}
+   \frac{v_{xx}(x)}{v(x)} = \lambda, & \text{for} \quad 0<x<\pi\\
+    u(0,y)=u(\pi,y)=0,              & \text{Boundary Values}
+\end{cases}
+\]
+
+\[
+\begin{cases}
+   \frac{-w_{yy}(y)}{w(y)} = \lambda, \quad \quad \quad \quad \; \, & \text{for} \quad 0<y<\pi\\
+   u(x,\pi)=0,              & \text{Boundary Value}
+\end{cases}
+\]
+
+\newpage
+
+\begin{eqnarray*}
+\frac{v_{xx}(x)}{v(x)} &=& \lambda \\
+v_{xx}(x) &=& \lambda \cdot v(x) \\
+v_{xx}(x) - \lambda \cdot v(x) &=& 0 
+\end{eqnarray*}
+
+
+If we let $v(x)=e^{rx}$, then 
+
+\begin{eqnarray*}
+v_{xx}(x) - \lambda \cdot v(x) &=& 0 \\
+\rightarrow e^{rx}(r^2-\lambda) &=& 0 
+\end{eqnarray*}
+
+
+We must now consider the three cases for $\lambda$. Namely, $\lambda >0$, $\lambda = 0$, and  $\lambda < 0$ for both $v(x)$ and $w(y)$. Note that for complex roots, we will take the $+$ root.
+
+\vspace{.25in}
+
+If $\lambda >0$, then the auxiliary equation for $v(x)$ will have 2 distinct real roots ($r = \pm \lambda$). Attempting to solve for $v(x)$ using the given boundary values, we discovered that $c_1=0$, and that $c_1=-c_2$ from the conditions $v(0)=0$ and $v(\pi)=0$ respectively. Thus, the $\lambda>0$ case presents us with the trivial solution (that is, $v(x)=0 \rightarrow u(x,y)=0$, and so we will move on to the case $\lambda=0$. 
+
+\begin{eqnarray*}
+e^{rx}(r^2-\lambda) &=& 0 \\
+\rightarrow v(x) &=& c_1e^{\sqrt\lambda x}+c_2e^{-\sqrt{\lambda} x}\\
+v(0) &=& c_1+c_2 = 0 \\
+c_1 &=& -c_2\\
+v(\pi) &=& c_1e^{\sqrt\lambda \pi}+c_2e^{-\sqrt{\lambda} \pi} = 0\\
+v(\pi) &=& c_1e^{\sqrt\lambda \pi}-c_1e^{-\sqrt{\lambda} \pi} = 0\\
+v(\pi) &=& c_1(e^{\sqrt\lambda \pi}+e^{-\sqrt{\lambda} \pi}) = 0\\
+c_1 &=& 0
+\end{eqnarray*}
+
+If we think of $v(\pi)$ as a linear combination of solutions to $(7)$ satisfying the boundary values $v(\pi)=0$ and $v(0)=0$, then it becomes clear that the solutions $v_1(x)$ and $v_2(x)$ to $v_{xx}(x) - \lambda \cdot v(x) = 0$ form a fundamental set ($v_1(x)=e^{\sqrt\lambda x}$ and $v_2(x)=e^{-\sqrt{\lambda} x}$), and are thusly linearly independent. With that being said, the only solution is the trivial solution ($c_1=c_2=0$).
+
+\newpage
+
+If $\lambda =0$, then the auxiliary equation for $v(x)$ will have repeated real roots ($r = 0$), and $w(y)$ will have repeated real roots ($r = 0$). Because of the repeated roots the reduction of order equation must be applied to generate a second linearly independent solution. Once we have a general solution to (8) we must use our boundary values to find a unique solution. As shown, we only find the trivial solution to hold for the case $\lambda =0$. Because $u(x,y)$ is of the form $v(x)w(y)$, if $v(x)=0$, then $u(x,y)=0$. Thus, there is no reason to solve for $w(y)$.
+
+
+\begin{eqnarray*}
+e^{rx}(r^2-\lambda) &=&0 \\
+v(x) &=& v_1(x) + v_2(x) \\
+v_1(x) &=& 1 \\
+v_2(x) =f(x) &=& \int 1 \cdot e^{-\int 0\,dt}\,dt \\
+ &=& x \\
+\rightarrow v(x) &=& c_1 \cdot1+c_2 \cdot x\\
+v(0) &=& c_1 \cdot1+c_2 \cdot 0 = 0\\
+0 &=& c_1\\
+v(\pi) &=& c_2 \cdot \pi = 0\\
+0&=& c_2\\
+&\rightarrow& \text{Trivial solution} \quad u(x,y)=0 \cdot w(y) = 0\\
+\end{eqnarray*}
+
+\newpage
+
+If $\lambda <0$, then the auxiliary equation for $v(x)$ will have complex roots ($r = \alpha \pm i \cdot \beta$), and $w(y)$ will have 2 distinct real roots ($r = \pm \lambda$). After using the boundary values $v(0)=v(\pi)=0$ we discover that for the $\lambda <0$ case, we may obtain a nontrivial solution.
+
+
+\begin{eqnarray*}
+e^{rx}(r^2-\lambda) &=& 0 \\
+\rightarrow v(x) &=& c_1\cos(\sqrt{ -\lambda} x)+ \cdot c_2\sin(\sqrt{ -\lambda} x)\\
+v(0) &=& c_1\cos( \sqrt{ -\lambda} \cdot 0)+ c_2\sin( \sqrt{ -\lambda} \cdot 0) = 0\\
+0 &=& c_1\\
+v(\pi) &=& c_2\sin( \sqrt{ -\lambda} \pi)\\
+0 &=& c_2 \sin(\sqrt{ -\lambda} \pi)\\
+&\rightarrow& v_n(x) = c_n\sin{nx} \\
+\end{eqnarray*}
+
+For $0 = c_2\sin(\sqrt{ -\lambda} \pi)$, either $c_2=0$ (which we will avoid as it gives the trivial solution), or $\lambda_n = n^2$ for $ n = 1, 2, 3, \ldots$ giving us infinitely many solutions (for $v(x)$). Namely, $v_n(x) = c_n\sin{nx}$. Note that because $\lambda <0$, $ \sqrt{ -\lambda} \in \RR$. We must now find $w(y)$.
+
+\begin{eqnarray*}
+e^{ry}(r^2+\lambda_n) &=& 0 \\
+\rightarrow w(y) &=& c_1e^{\sqrt{\lambda_n}y}+ c_2e^{-\sqrt{\lambda_n}y}\\
+w(0) &=& c_1e^{\sqrt{\lambda_n}y}+c_2e^{-\sqrt{\lambda_n}y} = f\\
+f &=& c_1+c_2 \\
+w(\pi) &=& c_1e^{\sqrt{\lambda_n} \pi}+c_2e^{-\sqrt{\lambda_n} \pi} = 0\\
+c_2 &=& \frac{-c_1e^{\sqrt{\lambda_n} \pi}}{e^{- \sqrt{\lambda_n} \pi}} = -c_1e^{2 \sqrt{\lambda_n} \pi} \\
+w(y) &=& c_1e^{\sqrt{\lambda_n}y}- c_1e^{2 \sqrt{\lambda_n} \pi -\sqrt{\lambda_n}y}\\
+w(y) &=& c_1(e^{\sqrt{\lambda_n}y}- e^{2 \sqrt{\lambda_n} \pi -\sqrt{\lambda_n}y})\\
+w(y) &=& c_1e^{\sqrt{\lambda_n} \pi} (e^{\sqrt{\lambda_n}y - \sqrt{\lambda_n} \pi}- e^{ \sqrt{\lambda_n} \pi -\sqrt{\lambda_n}y})\\
+w(y) &=& -c_1e^{\sqrt{\lambda_n} \pi} (-e^{\sqrt{\lambda_n}y - \sqrt{\lambda_n} \pi}+ e^{ \sqrt{\lambda_n} \pi -\sqrt{\lambda_n}y})\\
+w(y) &=& -c_1e^{\sqrt{\lambda_n} \pi} (e^{ \sqrt{\lambda_n} (\pi - y)} - e^{-\sqrt{\lambda_n} (\pi - y)})\\
+w(y) &=& -2c_1e^{\sqrt{\lambda_n} \pi} \left( \frac{e^{ \sqrt{\lambda_n} (\pi - y)} - e^{-\sqrt{\lambda_n} (\pi - y)})}{2} \right)\\
+w(y) &=& -2c_1e^{\sqrt{\lambda_n} \pi}(\sinh{\sqrt{\lambda_n} (\pi - y)})\\
+w(y) &=& c_1(\sinh{\sqrt{\lambda_n} (\pi - y)})\\
+&\rightarrow&  w_n(y) = c_n(\sinh{n(\pi - y)})\\
+\end{eqnarray*}
+
+Using the two conditions $w(0)=f$ and $w(\pi)=0$ we were able to find $c_2$ in terms of $c_1$. There are several lines of clever algebra to obtain $(\sinh{n(\pi - y)})$ as it shows up in the solution to 1.5.1 P.1 in the back of the book. I decided to keep all manipulations to the arbitrary $c_1$ until the end so that my work is easier to follow. Because $c_1$ is arbitrary, all of the constants multiplied to it can be absorbed. Since $\lambda_n = n^2$ for $n = 1, 2, 3, \ldots$, our solution to $w(y)$ is really infinitely many solutions, or $w_n(y)$.
+
+\vspace{.5in}
+
+
+
+$$\textbf{Solutions to the Dirichlet problem under the Laplace Operator}$$
+
+Only the $\lambda<0$ case provided a nontrivial solution, which will appear shortly. Note that the arbitrary constants for both $v_n(x)$ and $w_n(y)$ have been combined to become $c_n$. Also, the solution will be represented as a sum to capture the infinitely many solutions (i.e. $1, 2, 3, \ldots$ for choices of n).
+
+$$ u_n(x,y) =  \sum_{n=1}^\infty v_n(x)w_n(y) = \sum_{n=1}^\infty c_n(\sin{nx})(\sinh{n(\pi - y)})$$
+
+
+\vspace{.25in}
+
+$$\underbrace{f_n(x) = u_n(x,0) =  \sum_{n=1}^\infty c_n(\sin{nx})(\sinh{n(\pi)}) = \sum_{n=1}^\infty d_n(\sin{nx})} \quad \text{for} \; \,  0<x< \pi$$
+\hspace{1.65in} 
+$c_n$ absorbed $(\sinh{n(\pi)})$
+
+
+
+
+\end{document}
