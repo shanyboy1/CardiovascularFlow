@@ -4,10 +4,10 @@
 
 This project will briefly introduce the study of cardiovascular fluids with current analytical and numerical solutions
 
-##Getting Started
+## Getting Started
 
 Please review MATH5470-1pager.pdf to understand general extent of content. This project has been uploaded for informational use only. 
 
-##Requirements
+## Requirements
 
 Installation of LaTeX, and general understanding of calculus and differential equations (ordinary and partial). 
