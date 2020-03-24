@@ -8,7 +8,7 @@ This project will briefly introduce the study of cardiovascular fluids with curr
 
  - Please review MATH5470-1pager.pdf to understand general extent of content.  
  - The calculus prerequisites can be found in the Calculus Notes folder by accessing the [CalcNotes](Calculus%20Notes/PDE-Calc-Review.pdf) file.
- - PDE Separation of variables prerequisites can be found in the Separation of Variables folder by accessing the [SepVarNotes](Separation%20of%20Variables%20Notes/MATH5470-Separation of Variables.pdf) file.
+ - PDE Separation of variables prerequisites can be found in the Separation of Variables folder by accessing the [SepVarNotes](Separation%20of%20Variables%20Notes/MATH5470-Separation%20of%20Variables.pdf) file.
 
 ## Requirements
 
